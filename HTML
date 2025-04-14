@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digital Clock - Multiple Time Zones</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #282c34;
+      color: white;
+    }
+
+    .clock-container {
+      text-align: center;
+    }
+
+    .clock {
+      margin: 10px 0;
+      font-size: 24px;
+    }
+
+    .timezone {
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="clock-container">
+    <h1>Digital Clock - Multiple Time Zones</h1>
+    <div class="clock" id="utc">
+      <span class="timezone">UTC:</span> <span class="time"></span>
+    </div>
+    <div class="clock" id="new-york">
+      <span class="timezone">New York (EST/EDT):</span> <span class="time"></span>
+    </div>
+    <div class="clock" id="london">
+      <span class="timezone">London (GMT/BST):</span> <span class="time"></span>
+    </div>
+    <div class="clock" id="tokyo">
+      <span class="timezone">Tokyo (JST):</span> <span class="time"></span>
+    </div>
+    <div class="clock" id="sydney">
+      <span class="timezone">Sydney (AEST/AEDT):</span> <span class="time"></span>
+    </div>
+  </div>
+
+  <script>
+    function updateClocks() {
+      const timeZones = [
+        { id: 'utc', timeZone: 'UTC' },
+        { id: 'new-york', timeZone: 'America/New_York' },
+        { id: 'london', timeZone: 'Europe/London' },
+        { id: 'tokyo', timeZone: 'Asia/Tokyo' },
+        { id: 'sydney', timeZone: 'Australia/Sydney' }
+      ];
+
+      timeZones.forEach(zone => {
+        const clockElement = document.getElementById(zone.id).querySelector('.time');
+        const now = new Date();
+        const time = now.toLocaleTimeString('en-US', { timeZone: zone.timeZone, hour12: true });
+        clockElement.textContent = time;
+      });
+    }
+
+    setInterval(updateClocks, 1000);
+    updateClocks(); // Initial update
+  </script>
+</body>
+</html>
